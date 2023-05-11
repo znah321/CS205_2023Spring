@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <math.h>
 #include "tools.h"
 
 bool isValid(const int argc, char** argv, char* num1, char* num2, char* operator, int* info)
@@ -32,6 +33,14 @@ bool isValid(const int argc, char** argv, char* num1, char* num2, char* operator
     if (!isNumber(num1) || !isNumber(num2))
     {
         printf("The inputs are not numbers!\n");
+        return false;
+    }
+
+    // when the operator is "/", check if num2 equals to zero
+    char* ptr = NULL;
+    if (fabs(strtod(argv[3], &ptr)) < __DBL_EPSILON__)
+    {
+        printf("A number cannot be divied by zero!\n");
         return false;
     }
 
@@ -198,6 +207,17 @@ void multiply(const char num1[], const char num2[], const int* info)
     }
 }
 
+void divide(const char num1[], const char num2[])
+{
+    char* tmp = NULL;
+    double number1 = strtod(num1, &tmp);
+    double number2 = strtod(num2, &tmp);
+
+    double res = number1 / number2;
+    printf("%lf", res);
+}
+
+// transform character into integer
 int ctoi(const char c)
 {
     if (c >= '0' && c <= '9')
@@ -206,6 +226,7 @@ int ctoi(const char c)
         return 0;
 }
 
+// compare two strings
 int compare(const char num1[], const char num2[])
 {
     int len1 = strlen(num1);
@@ -232,6 +253,7 @@ int compare(const char num1[], const char num2[])
     }
 }
 
+// get the index of "." in the string
 int getDotPos(const char* str, const int len)
 {
     for(int i = len - 1; i >= 0; i--) {

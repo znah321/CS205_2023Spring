@@ -36,6 +36,11 @@ int main(int argc, char** argv)
             multiply(num1, num2, &info);
             break;
         }
+        case '/':
+        {
+            divide(argv[1], argv[3]);
+            break;
+        }
         default:
             break;
     }

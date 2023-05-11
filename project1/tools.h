@@ -9,6 +9,7 @@ bool isNumber(const char* str);
 void add(const char num1[], const char num2[], const int* info);
 void minus(const char num1[], const char num2[], const int flag, const int* info);
 void multiply(const char num1[], const char num2[], const int* info);
+void divide(const char num1[], const char num2[]);
 int ctoi(const char c);
 int compare(const char num1[], const char num2[]);
 int getDotPos(const char* str, const int len);
