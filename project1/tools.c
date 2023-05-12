@@ -98,6 +98,22 @@ void preprocess(char** argv, char* num1, char* num2, int* info)
     }
 }
 
+char* postprocess(char* num, const int len)
+{
+    int i;
+    for(i = len - 1; i >= 0; i--)
+    {
+        if (num[i - 1] != '0')
+            break;
+    }
+    if (num[i - 1] == '.') // when the numult is an integer
+        num[i - 1] = '\0';
+    else
+        num[i] = '\0';
+
+    return num;
+}
+
 bool isNumber(const char* str)
 {
     int len = strlen(str);
@@ -109,112 +125,142 @@ bool isNumber(const char* str)
     return true;
 }
 
-void add(const char num1[], const char num2[], const int* info)
+char* add(const char* num1, const char* num2, const int* info)
 {
-    char * res = NULL;
     int len1 = strlen(num1);
     int len2 = strlen(num2);
     int len = len1 > len2 ? len1 : len2;
-    res = (char *)malloc((len+1)*sizeof(char));
-    memset(res, 0, (len+1)*sizeof(char));
+    char _res[len + 1];
+    memset(&_res, 0, (len+1)*sizeof(char));
 
     for(int i = 0; i < len + 1; i++)
     {
-        res[len - i] += ctoi(num1[len1 - i - 1]) + ctoi(num2[len2 - i - 1]);
-        res[len - i - 1] += res[len - i] / 10;
-        res[len - i] %= 10;
+        _res[len - i] += ctoi(num1[len1 - i - 1]) + ctoi(num2[len2 - i - 1]);
+        _res[len - i - 1] += _res[len - i] / 10;
+        _res[len - i] %= 10;
     }
 
     // Postprocess
     int cnt = 0;
-    while (res[cnt] == 0) {cnt++;}
+    while (_res[cnt] == 0) {cnt++;} // delete 0 at the start
+
+    int _len;
+    if (info[0] > 0 || info[1] > 0)
+        _len = len - cnt + 2;
+    else
+        _len = len - cnt + 1;
+    char* res = (char*)malloc(_len * sizeof(char));
+    memset(res, 0, _len * sizeof(char));
 
     int pos = info[0] > info[1] ? info[0] : info[1];
-    for(int i = cnt; i < len + 1; i++)
+    for(int i = cnt, j = 0; i < len + 1; i++)
     {
-        if (len - i + 1 == pos)
-            printf(".");
-        printf("%d", res[i]);
+        if (i == len + 1 - pos && pos)
+            res[j++] = '.';
+        res[j++] = _res[i] + '0';
     }
+    res[_len] = '\0';
+
+    // delete 0 at the end (only when the input are float numbers and res[len-1] == '0')
+    len = strlen(res);
+    if (pos && res[len-1] == '0')
+        res = postprocess(res, len);
+
+    return res;
 }
 
-void minus(const char num1[], const char num2[], int flag, const int* info)
+char* minus(const char* num1, const char* num2, const int flag, const int* info)
 {
-    char * res = NULL;
     int len1 = strlen(num1);
     int len2 = strlen(num2);
     int len = len1 > len2 ? len1 : len2;
-    res = (char *)malloc((len)*sizeof(char));
-    memset(res, 0, (len+1)*sizeof(char));
+    char _res[len];
+    memset(&_res, 0, (len)*sizeof(char));
 
     for(int i = 0; i < len + 1; i++)
     {
         if (num1[len1 - i - 1] < num2[len2 - i - 1])
         {
-            res[len - i - 1] += 10 + ctoi(num1[len1 - i - 1]) - ctoi(num2[len2 - i - 1]);
-            res[len - i - 2] -= 1;
+            _res[len - i - 1] += 10 + ctoi(num1[len1 - i - 1]) - ctoi(num2[len2 - i - 1]);
+            _res[len - i - 2] -= 1;
         }
         else
         {
-            res[len - i - 1] += ctoi(num1[len1 - i - 1]) - ctoi(num2[len2 - i - 1]);
+            _res[len - i - 1] += ctoi(num1[len1 - i - 1]) - ctoi(num2[len2 - i - 1]);
         }
     }
 
     // Postprocess
-    int cnt = 0;
-    while (res[cnt] == 0) {cnt++;}
-    if (flag < 0)
-        printf("-");
+    if (info[0] > 0 || info[1] > 0)
+        len += 1;
+    char* res = (char*)malloc(len * sizeof(char));
+    memset(res, 0, len * sizeof(char));
 
     int pos = info[0] > info[1] ? info[0] : info[1];
-    for(int i = cnt; i < len; i++)
+    for(int i = 0, j = 0; i < len; i++)
     {
-        if (len - i == pos)
-            printf(".");
-        printf("%d", res[i]);
+        if (i == len - pos - 1 && pos)
+            res[j++] = '.';
+        res[j++] = _res[i] + '0';
     }
+    res[len] = '\0';
+
+    // delete 0 at the end (only when the input are float numbers and res[len-1] == '0')
+    len = strlen(res);
+    if (pos && res[len-1] == '0')
+        res = postprocess(res, len);
+
+    return res;
 }
 
-void multiply(const char num1[], const char num2[], const int* info)
+char* multiply(const char* num1, const char* num2, const int* info)
 {
-    char * res = NULL;
     int len1 = strlen(num1);
     int len2 = strlen(num2);
-    int len = len1 + len2;
-    res = (char *)malloc((len)*sizeof(char));
-    memset(res, 0, (len)*sizeof(char));
+    int len = len1 + len2 + 1;
+    char _res[len];
+    memset(&_res, 0, (len)*sizeof(char));
 
     for(int i = 0; i < len1; i++)
     {
         for(int j = 0; j < len2; j++)
         {
-            res[len - 1 - i - j] += ctoi(num1[len1 - i - 1]) * ctoi(num2[len2 - j - 1]);
-            res[len - 2 - i - j] += res[len - 1 - i - j] / 10;
-            res[len - 1 - i - j] %= 10;
+            _res[len - 1 - i - j] += ctoi(num1[len1 - i - 1]) * ctoi(num2[len2 - j - 1]);
+            _res[len - 2 - i - j] += _res[len - 1 - i - j] / 10;
+            _res[len - 1 - i - j] %= 10;
         }
     }
 
     // Postprocess
     int cnt = 0;
-    while (res[cnt] == 0) {cnt++;}
+    while (_res[cnt] == 0) {cnt++;} // delete zero at the start
+
+    if (info[0] > 0 || info[1] > 0)
+        len += 1;
+    char* res = (char*)malloc(len * sizeof(char));
+    memset(res, 0, len * sizeof(char));
+
+    // insert "."
+    int pos = info[0] + info[1];
     int offset = abs(info[0] - info[1]);
-    int pos = info[0] + info[1] + offset;
-    for(int i = cnt; i < len - offset; i++)
+    for(int i = cnt, j = 0; i < len1 + len2 + 1; i++)
     {
-        if (len - i == pos)
-            printf(".");
-        printf("%d", res[i]);
+        if (i == len1 + len2 + 1 - offset - pos)
+            res[j++] = '.';
+        res[j++] = _res[i] + '0';
     }
+    res[len] = '\0';
+
+    // delete zero at the end (only when the input are float numbers)
+    if (pos)
+        res = postprocess(res, len);
+
+    return res;
 }
 
-void divide(const char num1[], const char num2[])
+void divide(const char* num1, const char* num2, const int* info)
 {
-    char* tmp = NULL;
-    double number1 = strtod(num1, &tmp);
-    double number2 = strtod(num2, &tmp);
 
-    double res = number1 / number2;
-    printf("%lf", res);
 }
 
 // transform character into integer

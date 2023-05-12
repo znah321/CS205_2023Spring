@@ -15,34 +15,40 @@ int main(int argc, char** argv)
     if (!isValid(argc, argv, &num1, &num2, ptr, &info))
         return 0;
 
+    char* res;
     switch (operator)
     {
         case '+':
         {
-            add(num1, num2, &info);
+            res = add(num1, num2, &info);
             break;
         }
         case '-':
         {
             int flag = compare(num1, num2);
             if (flag > 0)
-                minus(num1, num2, flag, &info);
+                res = minus(num1, num2, flag, &info);
             else
-                minus(num2, num1, flag, &info);
+            {
+                res = minus(num2, num1, flag, &info);
+                res = res - 1;
+                res[0] = '-';
+            }
             break;
         }
         case 'x':
         {
-            multiply(num1, num2, &info);
+            res = multiply(num1, num2, &info);
             break;
         }
         case '/':
         {
-            divide(argv[1], argv[3]);
+            // divide(argv[1], argv[3]);
             break;
         }
         default:
             break;
     }
+    printf("%s", res);
     printf("\n");
 }
