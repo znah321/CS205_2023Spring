@@ -43,12 +43,13 @@ int main(int argc, char** argv)
         }
         case '/':
         {
-            // divide(argv[1], argv[3]);
+            divide(argv[1], argv[3]);
             break;
         }
         default:
             break;
     }
-    printf("%s", res);
+    if (res != NULL)
+        printf("%s", res);
     printf("\n");
 }

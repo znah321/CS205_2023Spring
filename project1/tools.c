@@ -258,9 +258,14 @@ char* multiply(const char* num1, const char* num2, const int* info)
     return res;
 }
 
-void divide(const char* num1, const char* num2, const int* info)
+void divide(const char* num1, const char* num2)
 {
+    char* tmp = NULL;
+    double number1 = strtod(num1, &tmp);
+    double number2 = strtod(num2, &tmp);
 
+    double res = number1 / number2;
+    printf("%lf", res);
 }
 
 // transform character into integer

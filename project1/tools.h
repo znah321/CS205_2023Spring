@@ -10,7 +10,7 @@ bool isNumber(const char* str);
 char* add(const char* num1, const char* num2, const int* info);
 char* minus(const char* num1, const char* num2, const int flag, const int* info);
 char* multiply(const char* num1, const char* num2, const int* info);
-void divide(const char* num1, const char* num2, const int* info);
+void divide(const char* num1, const char* num2);
 int ctoi(const char c);
 int compare(const char num1[], const char num2[]);
 int getDotPos(const char* str, const int len);
