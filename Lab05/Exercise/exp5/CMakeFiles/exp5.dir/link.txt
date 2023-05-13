@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/exp5.dir/main.cpp.o CMakeFiles/exp5.dir/stufun.cpp.o  -o exp5 

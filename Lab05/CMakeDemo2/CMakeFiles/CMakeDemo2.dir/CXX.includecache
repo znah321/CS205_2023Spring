@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/goweild/Labs/Lab05/CMakeDemo2/src/function.cpp
+function.hpp
+/home/goweild/Labs/Lab05/CMakeDemo2/src/function.hpp
+
+/home/goweild/Labs/Lab05/CMakeDemo2/src/function.hpp
+
+/home/goweild/Labs/Lab05/CMakeDemo2/src/main.cpp
+iostream
+-
+function.hpp
+/home/goweild/Labs/Lab05/CMakeDemo2/src/function.hpp
+

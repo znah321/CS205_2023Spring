@@ -1,0 +1,3 @@
+/home/goweild/Labs/Lab05/CMakeDemo2/CMakeFiles/rebuild_cache.dir
+/home/goweild/Labs/Lab05/CMakeDemo2/CMakeFiles/CMakeDemo2.dir
+/home/goweild/Labs/Lab05/CMakeDemo2/CMakeFiles/edit_cache.dir

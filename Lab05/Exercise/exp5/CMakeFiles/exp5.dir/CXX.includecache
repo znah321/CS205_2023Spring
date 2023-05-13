@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/goweild/Labs/Lab05/Exercise/exp5/main.cpp
+iostream
+-
+stuinfo.hpp
+/home/goweild/Labs/Lab05/Exercise/exp5/stuinfo.hpp
+
+/home/goweild/Labs/Lab05/Exercise/exp5/stufun.cpp
+iostream
+-
+stuinfo.hpp
+/home/goweild/Labs/Lab05/Exercise/exp5/stuinfo.hpp
+
+/home/goweild/Labs/Lab05/Exercise/exp5/stuinfo.hpp
+

@@ -1,0 +1,6 @@
+/home/goweild/Labs/Lab05/Exercise/CMakeFiles/edit_cache.dir
+/home/goweild/Labs/Lab05/Exercise/CMakeFiles/exp4.dir
+/home/goweild/Labs/Lab05/Exercise/CMakeFiles/exp3.dir
+/home/goweild/Labs/Lab05/Exercise/CMakeFiles/exp1.dir
+/home/goweild/Labs/Lab05/Exercise/CMakeFiles/rebuild_cache.dir
+/home/goweild/Labs/Lab05/Exercise/CMakeFiles/exp2.dir

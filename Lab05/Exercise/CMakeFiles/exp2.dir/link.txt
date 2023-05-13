@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/exp2.dir/exp2.cpp.o  -o exp2 
