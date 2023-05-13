@@ -19,7 +19,7 @@ void showstu(stuinfo stu[] , int n)
     for(int i = 0; i < n; i++)
     {
         cout << "--------------- Student " << i + 1 << " ---------------" << endl;
-        cout << "Name: " << stu[i].name;
+        cout << "Name: " << stu[i].name << endl;;
         cout << "Score: " << stu[i].score[0] << ", " << stu[i].score[1] << ", " << stu[i].score[2] << endl;
         cout << "Average: " << stu[i].ave << endl;
     }
